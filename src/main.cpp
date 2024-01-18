@@ -36,7 +36,8 @@
 *******************************************************************************/
 
 #include <auroraapp.h>
-#include <QtQuick>
+
+#include "init.h"
 
 int main(int argc, char *argv[])
 {
@@ -44,9 +45,8 @@ int main(int argc, char *argv[])
     application->setOrganizationName(QStringLiteral("ru.weather"));
     application->setApplicationName(QStringLiteral("WeatherDemo"));
 
-    QScopedPointer<QQuickView> view(Aurora::Application::createView());
-    view->setSource(Aurora::Application::pathTo(QStringLiteral("qml/WeatherDemo.qml")));
-    view->show();
+    Init init;
+    init.startApp();
 
     return application->exec();
 }

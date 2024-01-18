@@ -37,15 +37,26 @@
 
 TARGET = ru.weather.WeatherDemo
 
+QT += concurrent
+
 CONFIG += \
     auroraapp
 
 PKGCONFIG += \
 
 SOURCES += \
+    src/apicontroller.cpp \
+    src/apiworker.cpp \
+    src/init.cpp \
     src/main.cpp \
+    src/uicontroller.cpp
 
 HEADERS += \
+    src/apicontroller.h \
+    src/apiworker.h \
+    src/init.h \
+    src/structs.h \
+    src/uicontroller.h
 
 DISTFILES += \
     qml/pages/CitySearchPage.qml \
