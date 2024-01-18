@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=ru.weather.WeatherDemo
+Exec=/usr/bin/ru.weather.WeatherDemo
+Name=Weather Demo
+Name[ru]=Weather Demo
+
+[X-Application]
+Permissions=Location
+OrganizationName=ru.weather
+ApplicationName=WeatherDemo
+ExecDBus=/usr/bin/ru.weather.WeatherDemo
