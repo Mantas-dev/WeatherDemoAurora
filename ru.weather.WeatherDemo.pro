@@ -47,6 +47,7 @@ PKGCONFIG += \
 SOURCES += \
     src/apicontroller.cpp \
     src/apiworker.cpp \
+    src/dbcontroller.cpp \
     src/init.cpp \
     src/main.cpp \
     src/uicontroller.cpp
@@ -54,6 +55,7 @@ SOURCES += \
 HEADERS += \
     src/apicontroller.h \
     src/apiworker.h \
+    src/dbcontroller.h \
     src/init.h \
     src/structs.h \
     src/uicontroller.h

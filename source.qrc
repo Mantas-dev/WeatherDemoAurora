@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>icons/cloudy.svg</file>
         <file>icons/search.svg</file>
+        <file>tables.sql</file>
+        <file>russian-cities.json</file>
     </qresource>
 </RCC>
