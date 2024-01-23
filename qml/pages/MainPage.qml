@@ -70,7 +70,10 @@ Page {
             rightMargin : Theme.dp(16)
         }
         icon.source: "qrc:///icons/search.svg"
-        onClicked: pageStack.push(Qt.resolvedUrl("CitySearchPage.qml"))
+        onClicked: {
+            UILink.searchCitiesModel.clear();
+            pageStack.push(Qt.resolvedUrl("CitySearchPage.qml"));
+        }
     }
 
     Column {
@@ -84,20 +87,21 @@ Page {
                 spacing: Theme.dp(10)
 
                 Label {
-                    text: "-8°"
+                    text: UILink.weatherTemperature + "°"
                     font.pointSize: Theme.fontSizeHuge
                     font.pixelSize: 0
                 }
 
                 Label {
-                    text: "Уфа"
+                    text: UILink.cityName
                     font.pixelSize: Theme.fontSizeLarge
                 }
 
             }
 
             Image {
-                source: "qrc:///icons/cloudy.svg"
+                source: UILink.weatherType === "" ? ""
+                                                 : "qrc:///icons/" + UILink.weatherType + ".svg"
                 sourceSize {
                     width: Theme.dp(180)
                     height: Theme.dp(180)
@@ -108,12 +112,12 @@ Page {
         Column {
             spacing: Theme.dp(10)
             Label {
-                text: "Ощущается как -16°"
+                text: "Ощущается как " + UILink.weatherFeelsLike + "°"
                 font.pixelSize: Theme.fontSizeSmall
             }
 
             Label {
-                text: "Влажность 55%"
+                text: "Влажность " + UILink.weatherHumidity + "%"
                 font.pixelSize: Theme.fontSizeSmall
             }
         }
@@ -128,17 +132,23 @@ Page {
             rightMargin : Theme.dp(16)
         }
 
-        //image://theme/icon-m-favorite
-        //image://theme/icon-m-favorite-selected
         IconButton {
-            icon.source: "image://theme/icon-m-favorite"
+            icon.source: UILink.cityIsFavorite ? "image://theme/icon-m-favorite-selected"
+                                               : "image://theme/icon-m-favorite"
             onClicked: {
+                if (UILink.cityIsFavorite)
+                    UILink.deleteCurrentCityFromFavorites();
+                else
+                    UILink.addCurrentCityToFavorites();
             }
         }
 
         Button {
             text : "Избранные города"
-            onClicked: pageStack.push(Qt.resolvedUrl("FavoritesCitiesPage.qml"))
+            onClicked: {
+                UILink.favoritesCitiesModel.refresh();
+                pageStack.push(Qt.resolvedUrl("FavoritesCitiesPage.qml"))
+            }
         }
     }
 

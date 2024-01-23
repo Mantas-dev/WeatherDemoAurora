@@ -13,12 +13,12 @@ public:
     bool execSql(const QString &query);
     bool execFile(const QString &filePath);
     bool execSqlList(const QList<QString> &queries);
+    QString querySQLN(const QString &sql);
+    QHash<QString, QVariant> querySQLOneN(const QString &query);
 
 private:
     bool createTables();
     void loadJsonData();
-    QString querySQLN(const QString &sql);
-    QHash<QString, QString> querySQLOneN(const QString &query);
 
     QSqlDatabase db;
 

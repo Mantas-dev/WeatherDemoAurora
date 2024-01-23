@@ -30,31 +30,32 @@ Page {
             leftMargin  : Theme.horizontalPageMargin
             rightMargin : Theme.horizontalPageMargin
         }
-        clip: true
-        model: ["Africa", "Antarctica", "Asia", "Europe", "North America", "Oceania", "South America"]
+        clip    : true
+        model   : UILink.favoritesCitiesModel
 
         delegate: ListItem {
             Label {
                 anchors {
                     left            : parent.left
-                    leftMargin      : citiesListView.searchField.textLeftMargin
                     verticalCenter  : parent.verticalCenter
                 }
-                text: modelData
+                text: cityName
             }
 
             IconButton {
                 anchors {
                     right           : parent.right
-                    rightMargin     : citiesListView.searchField.textLeftMargin
                     verticalCenter  : parent.verticalCenter
                 }
                 icon.source: "image://theme/icon-m-delete"
                 onClicked: {
+                    UILink.favoritesCitiesModel.remove(index);
                 }
             }
 
             onClicked: {
+                UILink.requestShowWeatherInfo(model.latitude, model.longitude);
+                pageStack.push(Qt.resolvedUrl("MainPage.qml"))
             }
         }
     }

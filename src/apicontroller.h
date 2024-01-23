@@ -17,9 +17,9 @@ public:
     ~ApiController();
 
 signals:
-    void requestCurrentWeatherData();
+    void requestCurrentWeatherData(const double latitude, const double longitude);
 
-    void currentWeatherDataChanged(ApiReply reply);
+    void currentWeatherDataChanged(ApiWeatherInfo reply);
 
 private:
     QSharedPointer<QThread> m_workerThread;

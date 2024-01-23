@@ -22,7 +22,7 @@ Page {
             placeholderText : "Поиск"
             placeholderColor: "white"
             color           : "white"
-            leftItem        :null
+            leftItem        : null
             background: Rectangle {
                 width   : parent.width
                 height  : parent.height
@@ -31,28 +31,12 @@ Page {
             }
 
             onTextChanged: {
-                listModel.update()
+                UILink.searchCitiesModel.refresh(text);
             }
         }
 
         currentIndex: -1
-
-        model: ListModel {
-            id: listModel
-            property var continents: ["Africa", "Antarctica", "Asia", "Europe", "North America", "Oceania", "South America"]
-
-            function update() {
-                clear()
-
-                if (citiesListView.searchField.text != "" ) {
-                    for (var i=0; i<continents.length; i++) {
-                        if (continents[i].indexOf(citiesListView.searchField.text) >= 0) {
-                            append({"name": continents[i]})
-                        }
-                    }
-                }
-            }
-        }
+        model: UILink.searchCitiesModel
 
         delegate: ListItem {
             Label {
@@ -61,23 +45,25 @@ Page {
                     leftMargin      : citiesListView.searchField.textLeftMargin
                     verticalCenter  : parent.verticalCenter
                 }
-                text: name
+                text: cityName
             }
 
-            //image://theme/icon-m-favorite
-            //image://theme/icon-m-favorite-selected
             IconButton {
                 anchors {
                     right           : parent.right
                     rightMargin     : citiesListView.searchField.textLeftMargin
                     verticalCenter  : parent.verticalCenter
                 }
-                icon.source: "image://theme/icon-m-favorite"
+                icon.source: isFavorite ? "image://theme/icon-m-favorite-selected"
+                                        : "image://theme/icon-m-favorite"
                 onClicked: {
+                    model.isFavorite = !model.isFavorite;
                 }
             }
 
             onClicked: {
+                UILink.requestShowWeatherInfo(model.latitude, model.longitude);
+                pageStack.push(Qt.resolvedUrl("MainPage.qml"))
             }
         }
     }
@@ -89,6 +75,16 @@ Page {
         visible         : citiesListView.count == 0
         font.pixelSize  : Theme.fontSizeLarge
     }
+
+    states: [
+        State {
+            when: citiesListView.searchField.text !== "" && citiesListView.count == 0
+            PropertyChanges {
+                target  : messageLabel
+                text    : "Ничего не найдено"
+            }
+        }
+    ]
 
     Component.onCompleted: {
         citiesListView.searchField.forceActiveFocus();

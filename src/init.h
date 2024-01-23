@@ -5,6 +5,8 @@
 #include <QtQuick>
 
 class ApiController;
+class AppDb;
+class DBController;
 class UIController;
 
 class Init : public QObject
@@ -18,6 +20,8 @@ public:
 private:
     QSharedPointer<QQuickView> m_view;
     QSharedPointer<ApiController> m_apiController;
+    QSharedPointer<AppDb> m_appDb;
+    QSharedPointer<DBController> m_dbController;
     QSharedPointer<UIController> m_uiController;
 
 };

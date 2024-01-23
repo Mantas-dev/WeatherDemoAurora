@@ -12,13 +12,14 @@ public:
     explicit ApiWorker(QObject *parent = nullptr);
 
 signals:
-    void currentWeatherDataChanged(ApiReply reply);
+    void currentWeatherDataChanged(ApiWeatherInfo reply);
 
 public slots:
-    void getCurrentWeatherData();
+    void getCurrentWeatherData(const double &latitude, const double &longitude);
 
 private:
     bool requestApi(const QString &endpoint, const QString &params, ApiReply &apiReply);
+    QString parseWeatherType(const QJsonObject &object);
 
 };
 

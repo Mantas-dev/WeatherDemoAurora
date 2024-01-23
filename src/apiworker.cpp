@@ -1,5 +1,8 @@
 #include "apiworker.h"
 
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
@@ -11,12 +14,29 @@ ApiWorker::ApiWorker(QObject *parent) : QObject(parent)
 
 }
 
-void ApiWorker::getCurrentWeatherData()
+void ApiWorker::getCurrentWeatherData(const double &latitude, const double &longitude)
 {
-    QString params = "?lat=54.73&lon=55.96&units=metric";
-    ApiReply reply;
-    requestApi("/weather", params, reply);
-    emit currentWeatherDataChanged(reply);
+    QString params = QString("?lat=%1&lon=%2&units=metric&lang=ru").arg(latitude).arg(longitude);
+    ApiReply apiReply;
+    ApiWeatherInfo weatherInfo;
+    requestApi("/weather", params, apiReply);
+
+    if (apiReply.httpCode == 200) {
+        const auto jObj = QJsonDocument::fromJson(apiReply.body.toUtf8()).object();
+        const auto coordJObj = jObj.value("coord").toObject();
+        const auto weatherJArr = jObj.value("weather").toArray();
+        const auto mainJObj = jObj.value("main").toObject();
+
+        weatherInfo.cityName = jObj.value("name").toVariant().toString();
+        weatherInfo.latitude = coordJObj.value("lat").toVariant().toDouble();
+        weatherInfo.longitude = coordJObj.value("lon").toVariant().toDouble();
+        weatherInfo.weatherType = parseWeatherType(weatherJArr.first().toObject());
+        weatherInfo.temperature = mainJObj.value("temp").toVariant().toDouble();
+        weatherInfo.feelsLike = mainJObj.value("feels_like").toVariant().toDouble();
+        weatherInfo.humidity = mainJObj.value("humidity").toVariant().toDouble();
+    }
+
+    emit currentWeatherDataChanged(weatherInfo);
 }
 
 bool ApiWorker::requestApi(const QString &endpoint, const QString &params, ApiReply &apiReply)
@@ -83,4 +103,15 @@ bool ApiWorker::requestApi(const QString &endpoint, const QString &params, ApiRe
     apiReply.body = answer;
 
     return true;
+}
+
+QString ApiWorker::parseWeatherType(const QJsonObject &object)
+{
+    QString weatherType = object.value("main").toVariant().toString();
+    const auto typeId = object.value("id").toVariant().toInt();
+
+    if (typeId >= 700 && typeId < 800)
+        weatherType = "atmosphere";
+
+    return weatherType.toLower();
 }

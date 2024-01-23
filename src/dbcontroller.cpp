@@ -143,8 +143,7 @@ void DBController::loadJsonData()
         const auto latitude = coords.value("lat").toVariant().toDouble();
         const auto longitude = coords.value("lon").toVariant().toDouble();
 
-        QString query = QString("INSERT INTO cities(city_name,latitude,longitude) VALUES('%1', %2, %3) \n"
-                                "    ON CONFLICT(city_name) DO UPDATE SET latitude=excluded.latitude, longitude=excluded.longitude;")
+        QString query = QString("INSERT INTO cities(city_name,latitude,longitude) VALUES('%1', %2, %3);")
                                 .arg(cityName).arg(latitude).arg(longitude);
         execSql(query);
     }
@@ -180,9 +179,9 @@ QString DBController::querySQLN(const QString &query)
     return QJsonDocument(ret).toJson();
 }
 
-QHash<QString, QString> DBController::querySQLOneN(const QString &query)
+QHash<QString, QVariant> DBController::querySQLOneN(const QString &query)
 {
-    QHash<QString, QString> ret;
+    QHash<QString, QVariant> ret;
     QSqlQuery sqlQuery(db);
     sqlQuery.setForwardOnly(true);
 
@@ -195,9 +194,9 @@ QHash<QString, QString> DBController::querySQLOneN(const QString &query)
             ret.clear();
             for (int i = 0; i < fields.count(); ++i) {
                 if (sqlQuery.value(i).isNull())
-                    ret.insert(fields.fieldName(i), "");
+                    ret.insert(fields.fieldName(i), QVariant());
                 else
-                    ret.insert(fields.fieldName(i), sqlQuery.value(i).toString());
+                    ret.insert(fields.fieldName(i), sqlQuery.value(i));
             }
         }
     }
