@@ -19,6 +19,7 @@ class UIController : public QObject
     Q_PROPERTY(QString weatherType READ getWeatherType WRITE setWeatherType NOTIFY weatherTypeChanged)
     Q_PROPERTY(QString weatherFeelsLike READ getWeatherFeelsLike WRITE setWeatherFeelsLike NOTIFY weatherFeelsLikeChanged)
     Q_PROPERTY(QString weatherHumidity READ getWeatherHumidity WRITE setWeatherHumidity NOTIFY weatherHumidityChanged)
+    Q_PROPERTY(bool    busyIndicatorActive READ getBusyIndicatorActive WRITE setBusyIndicatorActive NOTIFY busyIndicatorActiveChanged)
 
     Q_PROPERTY(QObject* searchCitiesModel READ oSearchCitiesModel CONSTANT)
     Q_PROPERTY(QObject* favoritesCitiesModel READ oFavoritesCitiesModel CONSTANT)
@@ -33,6 +34,7 @@ public:
     QString getWeatherType();
     QString getWeatherFeelsLike();
     QString getWeatherHumidity();
+    bool    getBusyIndicatorActive();
 
     void setCityName(const QString &name);
     void setCityIsFavorite(const bool &isFavorite);
@@ -42,6 +44,7 @@ public:
     void setWeatherType(const QString &type);
     void setWeatherFeelsLike(const QString &feelsLike);
     void setWeatherHumidity(const QString &humidity);
+    void setBusyIndicatorActive(const bool &active);
 
     void setAppDb(QSharedPointer<AppDb> appDb);
     void updateWeatherUI(const ApiWeatherInfo &info);
@@ -55,6 +58,7 @@ signals:
     void weatherTypeChanged();
     void weatherFeelsLikeChanged();
     void weatherHumidityChanged();
+    void busyIndicatorActiveChanged();
 
     void requestShowWeatherInfo(const double &latitude, const double &longitude);
 
@@ -66,7 +70,7 @@ private:
     QObject *oSearchCitiesModel() const;
     QObject *oFavoritesCitiesModel() const;
 
-    bool m_cityIsFavorite = false;
+    bool m_cityIsFavorite = false, m_busyIndicatorActive = false;
     double m_cityLongitude = 0.0, m_cityLatitude = 0.0;
     QString m_cityName, m_weatherTemperature, m_weatherType,
             m_weatherFeelsLike, m_weatherHumidity;

@@ -42,24 +42,15 @@ Page {
     allowedOrientations : Orientation.All
     backgroundColor     : "#359cbb"
 
-    //        PageHeader {
-    //            objectName: "pageHeader"
-    //            title: qsTr("Weather Demo")
-    //            extraContent.children: [
-    //                IconButton {
-    //                    objectName: "aboutButton"
-    //                    icon.source: "image://theme/icon-m-about"
-    //                    anchors.verticalCenter: parent.verticalCenter
-
-    //                    onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
-    //                }
-    //            ]
-    //        }
-
-    //    PageBusyIndicator {
-    //        anchors.centerIn: parent
-    //        running: true
-    //    }
+    PageBusyIndicator {
+        anchors {
+            top             : weatherInfo.bottom
+            horizontalCenter: parent.horizontalCenter
+            topMargin       : Theme.dp(30)
+        }
+        size    : BusyIndicatorSize.Medium
+        running : UILink.busyIndicatorActive
+    }
 
     IconButton {
         id : searchButton

@@ -40,6 +40,11 @@ QString UIController::getWeatherHumidity()
     return m_weatherHumidity;
 }
 
+bool UIController::getBusyIndicatorActive()
+{
+    return m_busyIndicatorActive;
+}
+
 void UIController::setCityName(const QString &name)
 {
     m_cityName = name;
@@ -84,6 +89,12 @@ void UIController::setWeatherHumidity(const QString &humidity)
 {
     m_weatherHumidity = humidity;
     emit weatherHumidityChanged();
+}
+
+void UIController::setBusyIndicatorActive(const bool &active)
+{
+    m_busyIndicatorActive = active;
+    emit busyIndicatorActiveChanged();
 }
 
 void UIController::setAppDb(QSharedPointer<AppDb> appDb)

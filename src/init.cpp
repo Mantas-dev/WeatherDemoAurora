@@ -15,9 +15,13 @@ Init::Init(QObject *parent) :
     qRegisterMetaType<ApiWeatherInfo>("ApiWeatherInfo");
 
     connect(m_apiController.data(), &ApiController::currentWeatherDataChanged,
-            m_uiController.data(), &UIController::updateWeatherUI);
+            this, [&](ApiWeatherInfo reply){
+        m_uiController->setBusyIndicatorActive(false);
+        m_uiController->updateWeatherUI(reply);
+    });
     connect(m_uiController.data(), &UIController::requestShowWeatherInfo,
             this, [&](const double &latitude, const double &longitude){
+        m_uiController->setBusyIndicatorActive(true);
         m_uiController->loadCachedCityInfo(latitude, longitude);
         emit m_apiController->requestCurrentWeatherData(latitude, longitude);
     });
@@ -52,6 +56,5 @@ void Init::startApp()
         m_appDb->setParam("geo.longitude", QString::number(longitude));
     }
 
-    m_uiController->loadCachedCityInfo(latitude, longitude);
-    emit m_apiController->requestCurrentWeatherData(latitude, longitude);
+    emit m_uiController->requestShowWeatherInfo(latitude, longitude);
 }
