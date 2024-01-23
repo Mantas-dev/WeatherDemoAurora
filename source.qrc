@@ -1,8 +1,14 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/cloudy.svg</file>
         <file>icons/search.svg</file>
         <file>tables.sql</file>
         <file>russian-cities.json</file>
+        <file>icons/atmosphere.svg</file>
+        <file>icons/clear.svg</file>
+        <file>icons/clouds.svg</file>
+        <file>icons/drizzle.svg</file>
+        <file>icons/rain.svg</file>
+        <file>icons/snow.svg</file>
+        <file>icons/thunderstorm.svg</file>
     </qresource>
 </RCC>
