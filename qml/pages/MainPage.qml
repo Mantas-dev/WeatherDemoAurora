@@ -69,7 +69,8 @@ Page {
             topMargin   : Theme.dp(16)
             rightMargin : Theme.dp(16)
         }
-        icon.source: "qrc:///icons/search.svg"
+        icon.source : "qrc:///icons/search.svg"
+        icon.color  : "white"
         onClicked: {
             UILink.searchCitiesModel.clear();
             pageStack.push(Qt.resolvedUrl("CitySearchPage.qml"));
@@ -87,14 +88,16 @@ Page {
                 spacing: Theme.dp(10)
 
                 Label {
-                    text: UILink.weatherTemperature + "°"
-                    font.pointSize: Theme.fontSizeHuge
-                    font.pixelSize: 0
+                    text            : UILink.weatherTemperature + "°"
+                    font.pointSize  : Theme.fontSizeHuge
+                    font.pixelSize  : 0
+                    color           : "white"
                 }
 
                 Label {
-                    text: UILink.cityName
-                    font.pixelSize: Theme.fontSizeLarge
+                    text            : UILink.cityName
+                    font.pixelSize  : Theme.fontSizeLarge
+                    color           : "white"
                 }
 
             }
@@ -112,13 +115,15 @@ Page {
         Column {
             spacing: Theme.dp(10)
             Label {
-                text: "Ощущается как " + UILink.weatherFeelsLike + "°"
-                font.pixelSize: Theme.fontSizeSmall
+                text            : "Ощущается как " + UILink.weatherFeelsLike + "°"
+                font.pixelSize  : Theme.fontSizeSmall
+                color           : "white"
             }
 
             Label {
-                text: "Влажность " + UILink.weatherHumidity + "%"
-                font.pixelSize: Theme.fontSizeSmall
+                text            : "Влажность " + UILink.weatherHumidity + "%"
+                font.pixelSize  : Theme.fontSizeSmall
+                color           : "white"
             }
         }
     }
@@ -135,6 +140,7 @@ Page {
         IconButton {
             icon.source: UILink.cityIsFavorite ? "image://theme/icon-m-favorite-selected"
                                                : "image://theme/icon-m-favorite"
+            icon.color: "white"
             onClicked: {
                 if (UILink.cityIsFavorite)
                     UILink.deleteCurrentCityFromFavorites();
@@ -144,7 +150,8 @@ Page {
         }
 
         Button {
-            text : "Избранные города"
+            text    : "Избранные города"
+            color   : "white"
             onClicked: {
                 UILink.favoritesCitiesModel.refresh();
                 pageStack.push(Qt.resolvedUrl("FavoritesCitiesPage.qml"))

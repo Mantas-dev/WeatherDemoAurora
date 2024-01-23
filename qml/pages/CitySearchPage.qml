@@ -45,7 +45,8 @@ Page {
                     leftMargin      : citiesListView.searchField.textLeftMargin
                     verticalCenter  : parent.verticalCenter
                 }
-                text: cityName
+                text    : cityName
+                color   : "white"
             }
 
             IconButton {
@@ -54,8 +55,9 @@ Page {
                     rightMargin     : citiesListView.searchField.textLeftMargin
                     verticalCenter  : parent.verticalCenter
                 }
-                icon.source: isFavorite ? "image://theme/icon-m-favorite-selected"
-                                        : "image://theme/icon-m-favorite"
+                icon.source : isFavorite ? "image://theme/icon-m-favorite-selected"
+                                         : "image://theme/icon-m-favorite"
+                icon.color  : "white"
                 onClicked: {
                     model.isFavorite = !model.isFavorite;
                 }
@@ -74,6 +76,7 @@ Page {
         text            : "Введите название города"
         visible         : citiesListView.count == 0
         font.pixelSize  : Theme.fontSizeLarge
+        color           : "white"
     }
 
     states: [

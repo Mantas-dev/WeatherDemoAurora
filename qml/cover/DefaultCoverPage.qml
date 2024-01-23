@@ -43,9 +43,9 @@ CoverBackground {
 
     CoverPlaceholder {
         objectName: "placeholder"
-        text: qsTr("Cover")
+        text: qsTr("Погода")
         icon {
-            source: Qt.resolvedUrl("../icons/WeatherDemo.svg")
+            source: Qt.resolvedUrl("qrc:///icons/WeatherDemo.svg")
             sourceSize { width: icon.width; height: icon.height }
         }
         forceFit: true

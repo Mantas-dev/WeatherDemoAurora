@@ -17,6 +17,7 @@ Page {
         }
         text            : "Избранные города"
         font.pixelSize  : Theme.fontSizeExtraLarge
+        color           : "white"
     }
 
     SilicaListView {
@@ -39,7 +40,8 @@ Page {
                     left            : parent.left
                     verticalCenter  : parent.verticalCenter
                 }
-                text: cityName
+                text    : cityName
+                color   : "white"
             }
 
             IconButton {
@@ -47,7 +49,8 @@ Page {
                     right           : parent.right
                     verticalCenter  : parent.verticalCenter
                 }
-                icon.source: "image://theme/icon-m-delete"
+                icon.source : "image://theme/icon-m-delete"
+                icon.color  : "white"
                 onClicked: {
                     UILink.favoritesCitiesModel.remove(index);
                 }
