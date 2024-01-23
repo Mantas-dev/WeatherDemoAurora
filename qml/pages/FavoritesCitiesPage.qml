@@ -58,6 +58,7 @@ Page {
 
             onClicked: {
                 UILink.requestShowWeatherInfo(model.latitude, model.longitude);
+                pageStack.clear();
                 pageStack.push(Qt.resolvedUrl("MainPage.qml"))
             }
         }

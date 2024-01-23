@@ -114,6 +114,7 @@ void UIController::updateWeatherUI(const ApiWeatherInfo &info)
         setWeatherType(info.weatherType);
         setWeatherFeelsLike(QString::number(qRound(info.feelsLike)));
         setWeatherHumidity(QString::number(info.humidity));
+        setCityIsFavorite(m_appDb->cityIsFavorite(info.cityName));
         cacheCityInfo();
     }
 }
