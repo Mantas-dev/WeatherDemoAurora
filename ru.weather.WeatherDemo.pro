@@ -37,7 +37,7 @@
 
 TARGET = ru.weather.WeatherDemo
 
-QT += concurrent
+QT += sql network concurrent
 
 CONFIG += \
     auroraapp
@@ -47,16 +47,22 @@ PKGCONFIG += \
 SOURCES += \
     src/apicontroller.cpp \
     src/apiworker.cpp \
+    src/appdb.cpp \
     src/dbcontroller.cpp \
+    src/favoritescitiesmodel.cpp \
     src/init.cpp \
     src/main.cpp \
+    src/searchcitiesmodel.cpp \
     src/uicontroller.cpp
 
 HEADERS += \
     src/apicontroller.h \
     src/apiworker.h \
+    src/appdb.h \
     src/dbcontroller.h \
+    src/favoritescitiesmodel.h \
     src/init.h \
+    src/searchcitiesmodel.h \
     src/structs.h \
     src/uicontroller.h
 
