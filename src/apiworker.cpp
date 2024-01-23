@@ -72,8 +72,6 @@ bool ApiWorker::requestApi(const QString &endpoint, const QString &params, ApiRe
     QScopedPointer<QNetworkReply> reply(netManager->get(request));
     eventLoop.exec();
 
-    qDebug() << "### url - " << url;
-
     if (timer.isActive()) {
         timer.stop();
     } else {
@@ -83,8 +81,6 @@ bool ApiWorker::requestApi(const QString &endpoint, const QString &params, ApiRe
 
     QByteArray answer = reply->readAll();
     int replyError = (int)reply->error();
-
-    qDebug() << "### answer - " << answer;
 
     // Ошибка соединения
     if (answer.isEmpty() || (replyError >= 1 && replyError <= 99)) {

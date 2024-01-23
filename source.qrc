@@ -10,5 +10,6 @@
         <file>icons/rain.svg</file>
         <file>icons/snow.svg</file>
         <file>icons/thunderstorm.svg</file>
+        <file>icons/WeatherDemo.svg</file>
     </qresource>
 </RCC>

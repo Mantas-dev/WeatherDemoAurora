@@ -37,8 +37,8 @@ void Init::startApp()
     auto latitude = m_appDb->getParam("geo.latitude").toDouble();
     auto longitude = m_appDb->getParam("geo.longitude").toDouble();
 
-    QVector<QPair<double, double>> coords{{55.76, 37.62}, {59.95, 30.32}, {53.18, 50.12}, {54.77, 56.03},
-                                          {47.24, 39.71}, {56.33, 44.01}, {58.53, 31.28}, {55.79, 49.11}};
+    QVector<QPair<double, double>> coords{{55.76, 37.62}, {53.18, 50.12}, {54.77, 56.03}, {47.24, 39.71},
+                                          {56.33, 44.01}, {58.53, 31.28}, {55.79, 49.11}};
 
     std::random_device rd;
     std::mt19937 gen(rd());

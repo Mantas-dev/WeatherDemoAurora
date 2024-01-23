@@ -5,7 +5,7 @@
     <name>DefaultCoverPage</name>
     <message>
         <location filename="../qml/cover/DefaultCoverPage.qml" line="46"/>
-        <source>Cover</source>
+        <source>Погода</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
